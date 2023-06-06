@@ -1,0 +1,9 @@
+*~
+.cache
+.oebuild
+.tmp
+bak
+*.cm[iot]
+oUnit*.cache
+oUnit*.log
+
