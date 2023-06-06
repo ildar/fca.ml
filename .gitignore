@@ -1,4 +1,5 @@
 *~
+_build
 .cache
 .oebuild
 .tmp
@@ -7,3 +8,4 @@ bak
 oUnit*.cache
 oUnit*.log
 
+*.project.local

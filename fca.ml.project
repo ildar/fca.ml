@@ -10,10 +10,10 @@
   <version>1.0.0</version>
   <autocomp enabled="true" delay="1." cflags=""/>
   <targets>
-    <target name="unit tests" default="true" id="0" sub_targets="" is_fl_package="false" subsystem="" readonly="false" visible="true" node_collapsed="false">
+    <target name="fca" default="true" id="0" sub_targets="" is_fl_package="false" subsystem="" readonly="false" visible="true" node_collapsed="false">
       <descr></descr>
-      <byt>true</byt>
-      <opt>false</opt>
+      <byt>false</byt>
+      <opt>true</opt>
       <libs></libs>
       <other_objects></other_objects>
       <files>import_test.ml</files>
@@ -25,20 +25,47 @@
       <inline></inline>
       <nodep>false</nodep>
       <dontlinkdep>false</dontlinkdep>
-      <dontaddopt>false</dontaddopt>
+      <dontaddopt>true</dontaddopt>
       <cflags></cflags>
       <lflags></lflags>
-      <target_type>Executable</target_type>
+      <target_type>External</target_type>
       <outname>import_test</outname>
       <lib_install_path></lib_install_path>
-      <external_tasks/>
+      <external_tasks>
+        <task name="dune build">
+          <always_run_in_project>true</always_run_in_project>
+          <always_run_in_script>true</always_run_in_script>
+          <readonly>false</readonly>
+          <visible>true</visible>
+          <env replace="false"/>
+          <dir>..</dir>
+          <cmd>dune</cmd>
+          <args>
+            <arg enabled="true">build</arg>
+          </args>
+          <phase>Compile</phase>
+        </task>
+        <task name="dune test">
+          <always_run_in_project>false</always_run_in_project>
+          <always_run_in_script>false</always_run_in_script>
+          <readonly>false</readonly>
+          <visible>true</visible>
+          <env replace="false"/>
+          <dir>..</dir>
+          <cmd>dune</cmd>
+          <args>
+            <arg enabled="true">test</arg>
+          </args>
+          <phase>After_compile</phase>
+        </task>
+      </external_tasks>
       <restrictions></restrictions>
       <dependencies></dependencies>
     </target>
   </targets>
   <executables>
-    <executable name="import_test" default="true" target_id="0" id="0">
-      <build_task>&lt;COMPILE&gt;</build_task>
+    <executable name="unit tests" default="true" target_id="0" id="0">
+      <build_task>dune test</build_task>
       <env replace="false"/>
       <args/>
     </executable>

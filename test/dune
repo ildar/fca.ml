@@ -1,0 +1,4 @@
+(test
+ (name import_test)
+ (libraries fca ounit2)
+)

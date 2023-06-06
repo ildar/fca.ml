@@ -1,11 +1,11 @@
 open OUnit2
-open Io
+open Fca
 
 let filename = "animals.csv"
 
 let tests = "FCA module importing function" >::: [
   "can import animals.csv"  >:: (fun _ ->
-        let context = Io.context_from_csv filename in
+        let context = context_from_csv filename in
         assert_equal () context
       );
 ]
