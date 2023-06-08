@@ -1,3 +1,4 @@
+open Base
 open Io
 
 type context = unit

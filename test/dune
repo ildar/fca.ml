@@ -1,4 +1,4 @@
 (test
  (name import_test)
- (libraries fca ounit2)
+ (libraries fca base ounit2)
 )

@@ -1,2 +1,4 @@
 (library
- (name fca))
+ (name fca)
+ (libraries base stdio)
+)

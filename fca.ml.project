@@ -17,7 +17,7 @@
       <libs></libs>
       <other_objects></other_objects>
       <files>import_test.ml</files>
-      <package>ounit2</package>
+      <package>base ounit2 stdio</package>
       <includes></includes>
       <thread>false</thread>
       <vmthread>false</vmthread>
