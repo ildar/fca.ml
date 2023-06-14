@@ -9,7 +9,13 @@ let tests = "FCA module importing function" >::: [
         let context = context_from_csv filename ';' in
         let { attrs=attrs; objs=objs; } = context in
         assert_equal 4 (List.length attrs) ~msg:"number of attributes";
-        assert_equal 7 (List.length objs) ~msg:"number of objects"
+        assert_equal 7 (List.length objs) ~msg:"number of objects";
+        let (_, rels) =
+          match List.hd objs with
+          | None -> assert_failure "objects list is empty!"
+          | Some x -> x
+        in
+        assert_equal 4 (List.length rels) ~msg:"number of relations";
       );
   ]
 
