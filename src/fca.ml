@@ -2,8 +2,8 @@ open Base
 open Stdio
 
 type context = {
-    attrs: string list;
-    objs: string list;
+  attrs: string list;
+  objs: string list;
 }
 exception File_empty
 
@@ -14,24 +14,24 @@ let context_from_csv filename delim =
     match List.hd lines with
     | Some x -> x
     | None -> raise File_empty
-    in
+  in
   let attrs1 = String.split attrs_line ~on: delim in
   let attrs =
     match List.tl attrs1 with
     | Some x -> x
     | None -> raise File_empty
-    in
+  in
   let obj_lines =
     match List.tl lines with
     | Some x -> x
     | None -> raise File_empty
-    in
+  in
   let objs =
     List.filter
       ( List.map ~f:(
-        fun str -> str
-      ) obj_lines )
+            fun str -> str
+          ) obj_lines )
       ~f:(
         fun str -> String.length str > 0)
-    in
+  in
   { attrs = attrs; objs=objs; }
