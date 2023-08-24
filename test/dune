@@ -1,4 +1,4 @@
 (test
- (name import_test)
+ (name io_test)
  (libraries fca base ounit2)
 )
