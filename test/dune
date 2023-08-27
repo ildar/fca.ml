@@ -1,4 +1,7 @@
-(test
- (name io_test)
+(tests
+ (names
+    io_test
+    pos_test
+    )
  (libraries fca base ounit2)
 )
