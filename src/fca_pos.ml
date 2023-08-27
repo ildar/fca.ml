@@ -3,6 +3,25 @@ open Base.String
 open Fca_types
 
 (* https://en.wikipedia.org/wiki/Partially_ordered_set *)
+
+(* the relation a<=b in POS l *)
+let rec is_lt = fun a b ~l ->
+  let { elems=_; rels=rels } = l in
+  a=b ||
+  List.exists rels ~f:(
+    fun rel ->
+      let (x,y) = rel in
+      x=a && y=b
+  ) ||
+  List.fold
+    ~init: false
+    ~f:(
+      fun acc rel ->
+        let (_,y)=rel in
+        acc || is_lt y b ~l
+    ) @@
+    List.filter rels ~f:(fun rel -> let (x,_)=rel in x=a )
+
 let is_valid = fun a_pos ->
   let { elems=elems; rels=rels } = a_pos in
   (* check relations' elements exist *)
