@@ -15,6 +15,12 @@ let tests = "FCA module POS function" >::: [
         } in
         assert_bool "Pos.is_valid shouldn't have a<=a relations" @@
           not @@ Pos.is_valid a_pos2;
+        let a_pos3 = {
+          elems=["0";"a";"a";"1"];
+          rels=[ ("0","a"); ];
+        } in
+        assert_bool "Pos.is_valid shouldn't have duplicate elements" @@
+          not @@ Pos.is_valid a_pos3;
       );
     "can check the relation of a and b" >:: (fun _ ->
         let a_pos1 = {

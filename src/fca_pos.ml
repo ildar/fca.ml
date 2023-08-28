@@ -24,6 +24,8 @@ let rec is_lt = fun a b ~l ->
 
 let is_valid = fun a_pos ->
   let { elems=elems; rels=rels } = a_pos in
+  (* check for duplicates *)
+  not @@ List.contains_dup elems ~compare:compare &&
   (* check relations' elements exist *)
   List.fold
     rels
