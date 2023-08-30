@@ -21,6 +21,12 @@ let tests = "FCA module POS function" >::: [
         } in
         assert_bool "Pos.is_valid shouldn't have duplicate elements" @@
           not @@ Pos.is_valid a_pos3;
+        let a_pos4 = {
+          elems=["0";"1"];
+          rels=[ ("0","1"); ("1","0"); ];
+        } in
+        assert_bool "Pos.is_valid shouldn't have a<=b && b<=a" @@
+          not @@ Pos.is_valid a_pos4;
       );
     "can check the relation of a and b" >:: (fun _ ->
         let a_pos1 = {
@@ -35,6 +41,11 @@ let tests = "FCA module POS function" >::: [
           not @@ Pos.is_lt "a" "0" ~l:a_pos1;
         assert_bool {|Pos.is_lt "0" "1" ~l is false|} @@
           Pos.is_lt "0" "1" ~l:a_pos1;
+      );
+    "has utility functions working right" >:: (fun _ ->
+        let a_list = ["a";"b";"c";] in
+        assert_equal ~msg:"Pos.pairs_from_list producing lists" 6 @@
+          List.length @@ Pos.pairs_from_list a_list
       );
   ]
 
