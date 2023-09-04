@@ -1,9 +1,14 @@
 open Base
 open Base.String
-open Fca_types
 
-(* local *)
-let pairs_from_list = fun l ->
+type elem = string
+type pos = {
+  elems: elem list;
+  rels: (elem * elem) list;
+}
+
+(* FIXME: should be local *)
+let pairs_from_list l =
   List.fold l ~init:[] ~f:(
     fun acc e ->
       List.filter l ~f:(
@@ -15,10 +20,7 @@ let pairs_from_list = fun l ->
       List.append acc
   )
 
-(* https://en.wikipedia.org/wiki/Partially_ordered_set *)
-
-(* the relation a<=b in POS l *)
-let rec is_lt = fun a b ~l ->
+let rec is_lt a b ~l =
   let { elems=_; rels=rels } = l in
   a=b ||
   List.exists rels ~f:(
@@ -35,7 +37,7 @@ let rec is_lt = fun a b ~l ->
         acc || is_lt y b ~l
     )
 
-let is_valid = fun a_pos ->
+let is_valid a_pos =
   let { elems=elems; rels=rels } = a_pos in
   (* check for duplicates *)
   not @@ List.contains_dup elems ~compare:compare &&

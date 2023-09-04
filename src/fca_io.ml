@@ -2,7 +2,6 @@ open Base
 open Stdio
 open Fca_types
 
-(* TODO: exclude empty attrs and objs *)
 let context_from_csv_text ?delim:(delim=',') file_contents =
   let lines = String.split file_contents ~on:'\n' in
 

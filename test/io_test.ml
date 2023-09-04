@@ -17,6 +17,9 @@ let tests = "FCA module importing function" >::: [
         in
         assert_equal 4 (List.length rels) ~msg:"number of relations of the obj #1";
       );
+    "can exclude empty attrs and objs from context" >:: (fun _ ->
+        todo "later"
+      );
   ]
 
 let _ = run_test_tt_main tests
