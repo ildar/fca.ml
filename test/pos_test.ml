@@ -1,4 +1,5 @@
 open Base
+open Base.Option
 open OUnit2
 open Fca.Pos
 
@@ -28,7 +29,7 @@ let tests = "FCA module POS" >::: [
         assert_bool "is_valid shouldn't have a<=b && b<=a" @@
           not @@ is_valid a_pos4;
       );
-    "can check the relation of a and b" >:: (fun _ ->
+    "can check the order relation of a and b" >:: (fun _ ->
         let a_pos1 = {
           elems=["0";"a";"1"];
           rels=[ ("0","a"); ("a","1"); ];
@@ -41,6 +42,25 @@ let tests = "FCA module POS" >::: [
           not @@ is_lt "a" "0" ~l:a_pos1;
         assert_bool {|is_lt "0" "1" ~l is false|} @@
           is_lt "0" "1" ~l:a_pos1;
+      );
+    "can find meet and join of x and y" >:: (fun _ ->
+        let a_pos1 = { (* M_2 *)
+          elems=["0";"a";"b";"1"];
+          rels=[ ("0","a"); ("a","1");
+                 ("0","b"); ("b","1"); ];
+        } in
+        match meet2 "a" "a" ~l:a_pos1 with
+          | None -> assert_failure {|meet "a" "a" is None|}
+          | Some(m_a_a) -> assert_equal ~msg:{|meet "a" "a" is not "a"|} "a" m_a_a ;
+        match meet2 "0" "a" ~l:a_pos1 with
+          | None -> assert_failure {|meet "0" "a" ~l is None|}
+          | Some(m_0_a) -> assert_equal ~msg:{|meet "0" "a" is not "0"|} "0" m_0_a ;
+        match meet2 "a" "0" ~l:a_pos1 with
+          | None -> assert_failure {|meet "a" "0" ~l is None|}
+          | Some(m_a_0) -> assert_equal ~msg:{|meet "a" "0" is not "0"|} "0" m_a_0 ;
+        match meet2 "a" "b" ~l:a_pos1 with
+          | None -> assert_failure {|meet "a" "b" ~l is None|}
+          | Some(m_a_b) -> assert_equal ~msg:{|meet "a" "b" is not "0"|} "0" m_a_b ;
       );
     "has utility functions working right" >:: (fun _ ->
         let a_list = ["a";"b";"c";] in
