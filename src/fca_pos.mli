@@ -15,6 +15,9 @@ val is_lt: elem -> elem -> l:pos -> bool
 (** the meet of a and b in POS l *)
 val meet2: elem -> elem -> l:pos -> elem option
 
+(** the join of a and b in POS l *)
+val join2: elem -> elem -> l:pos -> elem option
+
 val is_valid: pos -> bool
 
 (* FIXME: should be local *)

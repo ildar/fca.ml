@@ -61,6 +61,18 @@ let tests = "FCA module POS" >::: [
         match meet2 "a" "b" ~l:a_pos1 with
           | None -> assert_failure {|meet "a" "b" ~l is None|}
           | Some(m_a_b) -> assert_equal ~msg:{|meet "a" "b" is not "0"|} "0" m_a_b ;
+        match join2 "a" "a" ~l:a_pos1 with
+          | None -> assert_failure {|join "a" "a" is None|}
+          | Some(j_a_a) -> assert_equal ~msg:{|join "a" "a" is not "a"|} "a" j_a_a ;
+        match join2 "0" "a" ~l:a_pos1 with
+          | None -> assert_failure {|join "0" "a" ~l is None|}
+          | Some(j_0_a) -> assert_equal ~msg:{|join "0" "a" is not "a"|} "a" j_0_a ;
+        match join2 "a" "0" ~l:a_pos1 with
+          | None -> assert_failure {|join "a" "0" ~l is None|}
+          | Some(j_a_0) -> assert_equal ~msg:{|join "a" "0" is not "a"|} "a" j_a_0 ;
+        match join2 "a" "b" ~l:a_pos1 with
+          | None -> assert_failure {|join "a" "b" ~l is None|}
+          | Some(j_a_b) -> assert_equal ~msg:{|join "a" "b" is not "1"|} "1" j_a_b ;
       );
     "has utility functions working right" >:: (fun _ ->
         let a_list = ["a";"b";"c";] in
