@@ -120,3 +120,17 @@ let is_valid a_pos =
         acc &&
           not (is_lt a b ~l:a_pos && is_lt b a ~l:a_pos)
     )
+
+let is_lattice a_pos =
+  let { elems=elems; rels=_ } = a_pos in
+  is_valid a_pos &&
+  pairs_from_list elems |>
+  List.fold
+    ~init: true
+    ~f:(
+      fun acc pair ->
+        let (a,b) = pair in
+        acc &&
+        Option.is_some @@ meet2 a b ~l:a_pos &&
+        Option.is_some @@ join2 a b ~l:a_pos
+    )

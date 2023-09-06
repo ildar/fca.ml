@@ -20,5 +20,7 @@ val join2: elem -> elem -> l:pos -> elem option
 
 val is_valid: pos -> bool
 
+val is_lattice: pos -> bool
+
 (* FIXME: should be local *)
 val pairs_from_list: elem list -> (elem * elem) list

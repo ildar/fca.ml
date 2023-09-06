@@ -74,6 +74,20 @@ let tests = "FCA module POS" >::: [
           | None -> assert_failure {|join "a" "b" ~l is None|}
           | Some(j_a_b) -> assert_equal ~msg:{|join "a" "b" is not "1"|} "1" j_a_b ;
       );
+    "can check a POS to be lattice" >:: (fun _ ->
+        let a_pos1 = {
+          elems=["0";"a";"1"];
+          rels=[ ("0","a"); ("a","1"); ];
+        } in
+        assert_bool {|is_lattice l is false|} @@
+          is_lattice a_pos1;
+        let a_pos2 = {
+          elems=["0";"a";"b";"1"];
+          rels=[ ("0","a"); ("a","1"); ("0","b"); ];
+        } in
+        assert_bool {|is_lattice l is true|} @@
+          not @@ is_lattice a_pos2;
+      );
     "has utility functions working right" >:: (fun _ ->
         let a_list = ["a";"b";"c";] in
         assert_equal ~msg:"pairs_from_list producing lists" 6 @@
